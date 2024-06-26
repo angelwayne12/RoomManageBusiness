@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RoomManageData;
+using RoomManageModel;
+
+namespace RoomManageBusiness
+{
+    public class RoomTransactionServices
+    {
+        RoomValidationServices validationServices = new RoomValidationServices();
+        RoomUserData userData = new RoomUserData();
+
+        public bool CreateRoom(Room room)
+        {
+            bool result = false;
+
+            if (validationServices.CheckIfNameExists(room.Name))
+            {
+                result = userData.AddRoom(room) > 0;
+            }
+
+            return result;
+        }
+
+        public bool CreateRoom(string Roomnum, string Name)
+        {
+            Room room = new Room { Roomnum = Roomnum, Name = Name };
+
+            return CreateRoom(room);
+        }
+
+        public bool UpdateRoom(Room room)
+        {
+            bool result = false;
+
+            if (validationServices.CheckIfNameExists(room.Name))
+            {
+                result = userData.UpdateRoom(room) > 0;
+            }
+
+            return result;
+        }
+
+        public bool UpdateRoom(string Roomnum, string Name)
+        {
+            Room room = new Room { Roomnum = Roomnum, Name = Name };
+
+            return UpdateRoom(room);
+        }
+
+        public bool DeleteRoom(Room room)
+        {
+            bool result = false;
+
+            if (validationServices.CheckIfNameExists(room.Name))
+            {
+                result = userData.DeleteRoom(room) > 0;
+            }
+
+            return result;
+        }
+    }
+}
